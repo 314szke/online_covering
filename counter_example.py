@@ -12,7 +12,7 @@ class CounterExample:
         self.k = k
         self.n = k**2
         self.m = self.n
-        self.c = [1 for _ in range(self.n)] # uniform cost all ci = 1
+        self.c = [1 for _ in range(self.n)] # uniform cost, all ci = 1
         self.constraints = []
 
         # k-1 experts decide to set the variable with the smallest index in the constraint to 1
@@ -47,6 +47,6 @@ class CounterExample:
     def CalculateThePotential(self, x):
         number_of_x_smaller_than_x_dyn = 0
         for i in range(self.n):
-            if x[i] <= (1/(self.n-i)):
+            if x[i] <= (1/(self.m-i)):
                 number_of_x_smaller_than_x_dyn += 1
         return number_of_x_smaller_than_x_dyn * math.log(self.k+1)
