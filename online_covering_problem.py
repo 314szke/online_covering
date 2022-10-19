@@ -77,7 +77,7 @@ class OnlineCoveringProblem:
 
             # Sum aij xi <= 1/2 must be satisfied
             available_increase = self.limit - self._MultiplyLists(a, self.x)
-            if available_increase < sum_derivatives:
+            if round(available_increase, 8) < round(sum_derivatives, 8):
                 scale_ratio = available_increase / sum_derivatives
                 self._ScaleDerivatives(scale_ratio)
 
