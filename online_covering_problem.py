@@ -40,10 +40,10 @@ class OnlineCoveringProblem:
         return False
 
 
-    # helper function to compute the element wise sum of two lists of length n
+    # helper function to compute the element wise multiplication of two lists of length n
     # l1: the first list of size n
     # l2: the second list of size n
-    def _SumLists(self, l1, l2):
+    def _MultiplyLists(self, l1, l2):
         sum_value = 0
         for i in range(self.n):
             sum_value += l1[i] * l2[i]
@@ -70,13 +70,13 @@ class OnlineCoveringProblem:
     # a: the coefficients of the current constraint
     # suggestions: a matrix of size n x k with k suggestions for each variable i in [n]
     def _SatisfyConstraint(self, a, suggestions):
-        while round(self._SumLists(a, self.x), 8) < round(self.limit, 8):
+        while round(self._MultiplyLists(a, self.x), 8) < round(self.limit, 8):
             self._CalculateDerivatives(a, suggestions)
             # sum the derivatives to know the expected increase in the constraint satisfaction
             sum_derivatives = sum(self.dx)
 
             # Sum aij xi <= 1/2 must be satisfied
-            available_increase = self.limit - self._SumLists(a, self.x)
+            available_increase = self.limit - self._MultiplyLists(a, self.x)
             if available_increase < sum_derivatives:
                 scale_ratio = available_increase / sum_derivatives
                 self._ScaleDerivatives(scale_ratio)
@@ -104,4 +104,4 @@ class OnlineCoveringProblem:
     # all xi needs to be multiplied by 2 because of the algorithm's 1/2 limit
     def FinalizeTheVariables(self):
         self.x = [x * 2 for x in self.x]
-        self.objective_value = self._SumLists(self.c, self.x)
+        self.objective_value = self._MultiplyLists(self.c, self.x)
